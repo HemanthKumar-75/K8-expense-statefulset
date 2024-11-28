@@ -63,7 +63,7 @@ spec:
       initContainers:
         - name: fix-permissions
           image: hemanthkumar75/mysql:v1
-          command: ["sh", "-c", "chown -R mysql:mysql /var/lib/mysql"]
+          command: ["sh", "-c", "ls -alh /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql"]
           volumeMounts:
             - name: mysql-mount-point
               mountPath: /var/lib/mysql
