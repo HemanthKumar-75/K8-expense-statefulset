@@ -60,6 +60,13 @@ spec:
         created_by: HemanthKumar     # has to match .spec.selector.matchLabels
     spec:
       # terminationGracePeriodSeconds: 10
+      initContainers:
+        - name: fix-permissions
+          image: busybox
+          command: ["sh", "-c", "chown -R mysql:mysql /var/lib/mysql"]
+          volumeMounts:
+            - name: mysql_mount_point
+              mountPath: /var/lib/mysql
       containers:
       - name: mysql
         image: hemanthkumar75/mysql:v1
