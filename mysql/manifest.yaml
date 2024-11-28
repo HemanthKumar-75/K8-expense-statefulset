@@ -65,7 +65,7 @@ spec:
           image: busybox
           command: ["sh", "-c", "chown -R mysql:mysql /var/lib/mysql"]
           volumeMounts:
-            - name: mysql_mount_point
+            - name: mysql-mount-point
               mountPath: /var/lib/mysql
       containers:
       - name: mysql
