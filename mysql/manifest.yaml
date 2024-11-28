@@ -62,7 +62,7 @@ spec:
       # terminationGracePeriodSeconds: 10
       initContainers:
         - name: fix-permissions
-          image: busybox
+          image: hemanthkumar75/mysql:v1
           command: ["sh", "-c", "chown -R mysql:mysql /var/lib/mysql"]
           volumeMounts:
             - name: mysql-mount-point
