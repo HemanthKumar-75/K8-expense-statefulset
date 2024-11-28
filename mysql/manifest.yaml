@@ -49,7 +49,7 @@ spec:
       created_by: HemanthKumar  # has to match .spec.template.metadata.labels
   serviceName: "mysql-headless"
   replicas: 2 # by default is 1
-  minReadySeconds: 5 # by default is 0
+  # minReadySeconds: 5 # by default is 0
   template:
     metadata:
       labels:
@@ -60,13 +60,13 @@ spec:
         created_by: HemanthKumar     # has to match .spec.selector.matchLabels
     spec:
       # terminationGracePeriodSeconds: 10
-      initContainers:
-        - name: fix-permissions
-          image: hemanthkumar75/mysql:v1
-          command: ["sh", "-c", "ls -alh /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql"]
-          volumeMounts:
-            - name: mysql-mount-point
-              mountPath: /var/lib/mysql
+      # initContainers:
+      #   - name: fix-permissions
+      #     image: hemanthkumar75/mysql:v1
+      #     command: ["sh", "-c", "ls -alh /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql"]
+      #     volumeMounts:
+      #       - name: mysql-mount-point
+      #         mountPath: /var/lib/mysql
       containers:
       - name: mysql
         image: hemanthkumar75/mysql:v1
