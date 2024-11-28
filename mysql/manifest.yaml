@@ -1,0 +1,94 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-headless
+  namespace: expense
+  labels:
+    application: mysql
+    tier: db_tier
+    project: expense
+    environment: dev
+    created_by: HemanthKumar
+spec:
+  selector:
+    application: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+  ClusterIP: None  # Headless service
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+  namespace: expense
+  labels:
+    application: mysql
+    tier: db_tier
+    project: expense
+    environment: dev
+    created_by: HemanthKumar
+spec:
+  selector:
+    application: mysql
+    tier: db_tier
+    project: expense
+    environment: dev
+    created_by: HemanthKumar
+  ports:
+    - name: mysql
+      protocol: TCP
+      port: 3306
+      targetPort: 3306
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: expense
+  labels:
+    application: mysql
+    tier: db_tier
+    project: expense
+    environment: dev
+    created_by: HemanthKumar
+spec:
+  selector:
+    matchLabels:
+      application: mysql
+      tier: db_tier
+      project: expense
+      environment: dev
+      created_by: HemanthKumar  # has to match .spec.template.metadata.labels
+  serviceName: "mysql-headless"
+  replicas: 2 # by default is 1
+  minReadySeconds: 5 # by default is 0
+  template:
+    metadata:
+      labels:
+        application: mysql
+        tier: db_tier
+        project: expense
+        environment: dev
+        created_by: HemanthKumar     # has to match .spec.selector.matchLabels
+    spec:
+      # terminationGracePeriodSeconds: 10
+      containers:
+      - name: MySql
+        image: hemanthkumar75/mysql:v1
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-mount-point
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-mount-point
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "expense-ebs-sc-dynamic"
+      resources:
+        requests:
+          storage: 1Gi
