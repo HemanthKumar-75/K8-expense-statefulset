@@ -16,7 +16,7 @@ spec:
     - protocol: TCP
       port: 3306
       targetPort: 3306
-  ClusterIP: None  # Headless service
+  clusterIP: None  # Headless service
 ---
 kind: Service
 apiVersion: v1
