@@ -45,4 +45,4 @@ spec:
   - name: frontend
     protocol: TCP
     port: 8080            # The port on which the service will be exposed to the external network.
-    targetPort: 80        # The target port on the pods that this service will route traffic to.
+    targetPort: 8080        # The target port on the pods that this service will route traffic to.
