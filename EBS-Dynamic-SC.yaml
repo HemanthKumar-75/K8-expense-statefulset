@@ -4,4 +4,4 @@ metadata:
   name: expense-ebs-sc-dynamic
 reclaimPolicy: Retain
 provisioner: ebs.csi.aws.com
-volumeBindingMode: WaitForFirstConsumer
+volumeBindingMode: Immediate # WaitForFirstConsumer
