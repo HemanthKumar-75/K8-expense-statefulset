@@ -4,6 +4,7 @@ metadata:
   name: mysql-headless
   namespace: expense
 spec:
+  clusterIP: None  # Headless service
   selector:
     application: mysql
     tier: db_tier
@@ -14,7 +15,6 @@ spec:
   - protocol: TCP
     port: 3306
     targetPort: 3306
-  clusterIP: None  # Headless service
 ---
 kind: Service
 apiVersion: v1
