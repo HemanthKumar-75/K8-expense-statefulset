@@ -58,9 +58,12 @@ spec:
         environment: dev
         created_by: HemanthKumar     # has to match .spec.selector.matchLabels
     spec:
+      securityContext:
+        fsGroup: 999
+        runAsUser: 999
       containers:
       - name: mysql
-        image: joindevops/mysql:v1
+        image: hemanthkumar75/mysql:v1
         volumeMounts:
         - name: mysql
           mountPath: /var/lib/mysql
